@@ -26,16 +26,7 @@ app.use('/', appRoute)
 
 appRoute.route('/')
     .get((req, res) => {
-        let output = `<div>
-            <br/>
-                <h3>csv to json converter</h3>
-            <hr/>
-                <form action="/csvfiles" method="post">
-                    <label for="urlFile"><input typr="text" name="csvurl" placeholder="csv file or url" required/></label>
-                    <input type="submit" value="convert to json"/>
-                </form>
-            </div>`
-        res.send(output)
+        res.sendFile(path.join(__dirname, '/views/index.html'))
     })
 
 appRoute.route('/csvfiles').post((req, res, next) => {
