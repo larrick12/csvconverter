@@ -15,6 +15,8 @@ const crypt = require('crypto');
 
 const appRoute = express.Router();
 
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'views/'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -26,7 +28,7 @@ app.use('/', appRoute)
 
 appRoute.route('/')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, '/views/index.html'))
+        res.render('index')
     })
 
 appRoute.route('/csvfiles').post((req, res, next) => {
@@ -69,16 +71,14 @@ appRoute.route('/csvfiles').post((req, res, next) => {
     let csvData = path.join(__dirname, options.path);
     let jsonData = path.join(__dirname, '/src/csv-data/csvjson.json');
 
+    // check if the file is a valid csv
     if (path.extname(csvData) === '.csv') {
-        debug(true);
-        debug('fetching file...')
-    } else {
-        debug('Invalid csv file')
-        next();
+        debug('valid csv file')
     }
 
-    let hash = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-#@$";
+    let hash = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-@";
 
+    // generate convert key
     function randomString(length, chars) {
         if (!chars) {
             debug('Argument \'chars\' is undefined');
@@ -109,8 +109,6 @@ appRoute.route('/csvfiles').post((req, res, next) => {
     }
 
     function readfile() {
-
-        let cData;
         let csvJson = [];
 
         // reading the csv file
@@ -142,28 +140,28 @@ appRoute.route('/csvfiles').post((req, res, next) => {
                 csvJson.push(obj);
             }
 
+            // check if data array is less
             dataObj['conversion_key'] = randomkey(32);
             dataObj['json'] = csvJson.length > 0 && csvJson.length < 2 ? csvJson[0] : csvJson;
 
+            // write the converted json file 
             fs.writeFile(jsonData, JSON.stringify(dataObj, null, 4), {
                 encoding: 'utf-8'
             }, err => {
-                if (err) return debug(err)
-                debug('written json file')
+                if (err) return debug(err);
+                debug('written json file');
             })
 
-            cData = `<div>
-        <br/>
-        <h2>CSV RAW FILE</h2>
+            res.send(`<div>
+            <br/>
+        <h2> CSV RAW FILE </h2>
+        <hr/> 
+            ${data}
         <hr/>
-        ${data}
+        <h2> CSV converted to JSON </h2>
         <hr/>
-        <h2>CSV converted to JSON</h2>
-        <hr/>
-        ${JSON.stringify(dataObj)}
-    </div>`;
-
-            res.send(cData);
+        <code>${JSON.stringify(dataObj)}</code>
+        </div>`);
 
         })
     }
