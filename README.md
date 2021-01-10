@@ -2,13 +2,13 @@
 
 Api service that convert input spreedsheet url to csv format, then return json format.
 
-    ## for example: if we receive this format of json file
-    ##{
-      ##"csv" : {
-        ##"url" : "https://docs.google.com/spreadsheets/d/1qndb7vn0Ff9kSyQZFoTygCjWNJNJFVGjfxc0yRMhaQo/htmlview#gid=0",
-        ##"selected_fields" : ["firstname", "lastname", "age", "phone number"]
-        ##}
-    ##}
+    for example: if we receive this format of json file
+          {
+             "csv" : {
+              "url" : "https://docs.google.com/spreadsheets/d/1qndb7vn0Ff9kSyQZFoTygCjWNJNJFVGjfxc0yRMhaQo/htmlview#gid=0",
+              "selected_fields" : ["firstname", "lastname", "age", "phone number"]
+             }
+         }
   
   
     the returned format after convertion if the selected file is one
@@ -16,10 +16,10 @@ Api service that convert input spreedsheet url to csv format, then return json f
     {
       "cpnvertion_key": "1oHJshojOJoIubuigyg_96kjg",
       "json" : {
-        "firstname" : "name",
-        "lastname" : "names",
-        "age" : "age",
-        "phone number" : "phone number"
+            "firstname" : "name",
+            "lastname" : "names",
+            "age" : "age",
+            "phone number" : "phone number"
         }
     }
    
