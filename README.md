@@ -1,5 +1,11 @@
 # CSV TO JSON CONVERTER
 
+## Glitch link to use the api
+     
+   ### Live url
+   "https://concise-dynamic-watercress.glitch.me"
+
+
 Api service that convert input spreedsheet url to csv format, then return json format.
 
     for example: if we receive this format of json file
@@ -42,9 +48,4 @@ Api service that convert input spreedsheet url to csv format, then return json f
               "phone number" : "phone number"
               }
           ]
-      }
-     
-   ## Glitch link to use the api
-     
-   ### Live url
-   "https://concise-dynamic-watercress.glitch.me"
+     }
