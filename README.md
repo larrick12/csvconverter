@@ -5,7 +5,7 @@ Api service that convert input spreedsheet url to csv format, then return json f
 for example: if we receive this format of json file
   {
     "csv" : {
-      "url" : "https://docs.google.com/spreedsheet/1/d/1qNsjajhhHSOhnnsjOd9HohY/edit#gid=0",
+      "url" : "https://docs.google.com/spreadsheets/d/1qndb7vn0Ff9kSyQZFoTygCjWNJNJFVGjfxc0yRMhaQo/htmlview#gid=0",
       "selected_fields" : ["firstname", "lastname", "age", "phone number"]
       }
   }
